@@ -1,0 +1,191 @@
+# Todo CRUD API Contract
+
+# This contract defines the business logic interface for Todo operations
+# All operations are in-memory only with no persistence
+
+openapi: 3.0.0
+info:
+  title: Todo CRUD Business Logic API
+  version: 1.0.0
+  description: Business logic layer for Todo CRUD operations (in-memory only)
+
+paths:
+  /todos:
+    get:
+      summary: Retrieve all todo items
+      description: Returns a list of all todo items in the system
+      responses:
+        '200':
+          description: List of all todo items
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Todo'
+    post:
+      summary: Create a new todo item
+      description: Creates a new todo item with the provided description
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "Buy groceries"
+                  description: Description of the task to be completed
+              required:
+                - description
+      responses:
+        '201':
+          description: Todo item created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Invalid input - description is required and cannot be empty
+
+  /todos/{id}:
+    get:
+      summary: Retrieve a specific todo item
+      description: Returns the todo item with the specified ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Todo item found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: Todo item not found
+    put:
+      summary: Update a specific todo item
+      description: Updates the todo item with the specified ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                description:
+                  type: string
+                  example: "Updated task description"
+                completed:
+                  type: boolean
+                  example: false
+      responses:
+        '200':
+          description: Todo item updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '400':
+          description: Invalid input
+        '404':
+          description: Todo item not found
+    delete:
+      summary: Delete a specific todo item
+      description: Deletes the todo item with the specified ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Todo item deleted successfully
+        '404':
+          description: Todo item not found
+
+  /todos/{id}/complete:
+    put:
+      summary: Mark a todo item as complete
+      description: Marks the specified todo item as complete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Todo item marked as complete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: Todo item not found
+
+  /todos/{id}/incomplete:
+    put:
+      summary: Mark a todo item as incomplete
+      description: Marks the specified todo item as incomplete
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Todo item marked as incomplete
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Todo'
+        '404':
+          description: Todo item not found
+
+components:
+  schemas:
+    Todo:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique identifier for the todo item
+          example: "123e4567-e89b-12d3-a456-426614174000"
+        description:
+          type: string
+          description: Description of the task to be completed
+          example: "Buy groceries"
+        completed:
+          type: boolean
+          description: Completion status of the todo item
+          example: false
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the todo was created
+          example: "2025-12-31T10:00:00Z"
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the todo was last updated
+          example: "2025-12-31T10:00:00Z"
+      required:
+        - id
+        - description
+        - completed
+        - created_at
+        - updated_at

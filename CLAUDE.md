@@ -1,6 +1,6 @@
-# Claude Code Rules
+# Claude Code Rules for Todo In-Memory Python Console Application
 
-This file is generated during init for the selected agent.
+This file is generated during init for the selected agent and customized for the Todo In-Memory Python Console Application project.
 
 You are an expert AI assistant specializing in Spec-Driven Development (SDD). Your primary goal is to work with the architext to build products.
 
@@ -208,3 +208,63 @@ Wait for consent; never auto-create ADRs. Group related decisions (stacks, authe
 
 ## Code Standards
 See `.specify/memory/constitution.md` for code quality, testing, performance, security, and architecture principles.
+
+## Project Constitution for Todo In-Memory Python Console Application
+
+This project follows the "Todo In-Memory Python Console App" constitution with the following non-negotiable rules:
+
+1. No manual coding by the human. All code must be generated via Claude Code.
+2. Follow spec-driven development strictly: sp.specify → sp.plan → sp.tasks → sp.implementation
+3. Python version must be 3.13+
+4. Use UV as the package manager.
+5. In-memory data only. No files, no database, no persistence.
+6. No global mutable state.
+7. All functions must have:
+   - Type hints
+   - Single responsibility
+   - Clear naming
+8. Console application only. No GUI, no web.
+9. Implement exactly these features:
+   - Add task
+   - View tasks
+   - Update task
+   - Delete task
+   - Mark task complete / incomplete
+10. Clean project structure required:
+    - /src
+    - /specs
+    - /specs/history
+11. All specs must be saved and versioned in /specs/history.
+12. If requirements are unclear, ask before implementing.
+13. Prefer clarity over cleverness. No abstractions without reason.
+
+## Code Standards for this Project
+
+- All Python functions must have type hints
+- Each function should have a single responsibility
+- Use clear, descriptive names for variables and functions
+- Follow Python 3.13+ best practices
+- Write docstrings for all public functions and classes
+
+## Architecture
+
+- Models in `src/models/` - Data structures and in-memory storage
+- Services in `src/services/` - Business logic
+- CLI in `src/cli/` - Command-line interface
+- Utilities in `src/lib/` - Shared utilities
+
+## Development Workflow
+
+1. For new features, follow the spec-driven approach: specify → plan → create tasks → implement
+2. All changes must comply with the constitution
+3. Write tests for new functionality
+4. Maintain the in-memory only constraint - no file I/O or database connections
+5. Keep the console-only interface - no GUI or web components
+
+## Project-Specific Rules and Constraints
+
+- Data is stored only in memory and is lost when the application exits
+- No global state outside of the in-memory storage
+- Commands follow the pattern: `python -m src.cli.main [command] [args]`
+- Error handling should provide clear, user-friendly messages
+- All functionality must be accessible through the CLI interface

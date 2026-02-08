@@ -1,0 +1,16 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git fetch --all --prune)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json -RequireTasks -IncludeTasks)",
+      "Bash(git rev-parse --git-dir)",
+      "Bash(.specify/scripts/powershell/check-prerequisites.ps1 -Json)",
+      "Bash(.specify/scripts/powershell/setup-plan.ps1 -Json)",
+      "Bash(python -m pytest tests/ -v)",
+      "Bash(python test_todo_crud.py)",
+      "Bash(python test_todo_crud_simple.py)",
+      "Bash(timeout 10s python src/cli/main.py)",
+      "Bash(python -c \"from src.cli.main import main; print\\(''CLI import test: SUCCESS - Import path issue fixed with project root approach''\\)\")"
+    ]
+  }
+}
