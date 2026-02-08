@@ -1,4 +1,4 @@
-# Todo In-Memory Python Console Application
+# HackethonPhase1 - Todo In-Memory Python Console Application
 
 A simple command-line todo application that stores tasks in memory only. No files, no database, no persistence - all data is lost when the application closes.
 
